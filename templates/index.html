@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>GeoSeer — AI-Powered Site Discovery</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;color:#1a1a1a;background:#fff;}
+nav{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 2rem;border-bottom:1px solid #eee;}
+.logo{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;}
+.logo span{color:#1D9E75;}
+.nav-links{display:flex;gap:2rem;font-size:14px;color:#666;}
+.nav-links a{text-decoration:none;color:inherit;}
+.btn-nav{background:#1D9E75;color:white;border:none;padding:8px 20px;border-radius:6px;font-size:13px;cursor:pointer;font-weight:500;}
+
+.hero{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;padding:5rem 2rem 4rem;max-width:1100px;margin:0 auto;}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:#E1F5EE;color:#0F6E56;font-size:12px;font-weight:500;padding:5px 12px;border-radius:20px;margin-bottom:1.5rem;}
+.dot{width:6px;height:6px;border-radius:50%;background:#1D9E75;}
+h1{font-family:'Playfair Display',serif;font-size:48px;line-height:1.15;font-weight:700;margin-bottom:1.25rem;letter-spacing:-1px;}
+h1 em{font-style:italic;color:#1D9E75;}
+.hero p{font-size:16px;line-height:1.7;color:#555;margin-bottom:2rem;max-width:480px;}
+.btn-primary{background:#1D9E75;color:white;border:none;padding:14px 28px;border-radius:8px;font-size:15px;cursor:pointer;font-weight:500;margin-right:12px;text-decoration:none;display:inline-block;}
+.btn-secondary{background:transparent;color:#1a1a1a;border:1px solid #ddd;padding:14px 28px;border-radius:8px;font-size:15px;cursor:pointer;text-decoration:none;display:inline-block;}
+
+.map-preview{background:#E1F5EE;border-radius:16px;border:1px solid #c8eedd;overflow:hidden;height:340px;display:flex;align-items:center;justify-content:center;}
+.map-preview svg{width:100%;height:100%;}
+
+.stats{display:flex;gap:2rem;padding:3rem 2rem;border-top:1px solid #eee;border-bottom:1px solid #eee;max-width:1100px;margin:0 auto;}
+.stat-num{font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:#1D9E75;}
+.stat-label{font-size:13px;color:#888;margin-top:4px;}
+
+.section{padding:5rem 2rem;max-width:1100px;margin:0 auto;}
+.section-tag{font-size:12px;font-weight:500;color:#1D9E75;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:1rem;}
+.section-title{font-family:'Playfair Display',serif;font-size:36px;font-weight:700;margin-bottom:3rem;letter-spacing:-0.5px;}
+
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;}
+.step{padding:1.5rem;border:1px solid #eee;border-radius:12px;}
+.step-num{font-family:'Playfair Display',serif;font-size:42px;font-weight:700;color:#E1F5EE;line-height:1;margin-bottom:1rem;-webkit-text-stroke:1.5px #1D9E75;}
+.step h3{font-size:16px;font-weight:500;margin-bottom:0.5rem;}
+.step p{font-size:14px;color:#666;line-height:1.6;}
+
+.layers-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2rem;}
+.layer-card{display:flex;align-items:center;gap:1rem;padding:1rem 1.25rem;border:1px solid #eee;border-radius:10px;}
+.layer-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.layer-label{font-size:14px;font-weight:500;}
+.layer-sub{font-size:12px;color:#888;margin-top:2px;}
+
+.demo-box{background:#f9f9f9;border:1px solid #eee;border-radius:16px;padding:2rem;}
+.input-row{display:flex;gap:1rem;margin-bottom:1rem;}
+.gs-input{flex:1;padding:10px 14px;border:1px solid #ddd;border-radius:8px;font-size:14px;font-family:'DM Sans',sans-serif;}
+.gs-select{padding:10px 14px;border:1px solid #ddd;border-radius:8px;font-size:14px;font-family:'DM Sans',sans-serif;background:#fff;}
+.analyze-btn{width:100%;padding:12px;background:#1D9E75;color:white;border:none;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.result{display:none;margin-top:1.5rem;}
+.prob-bar-wrap{background:#fff;border-radius:8px;padding:1.25rem;border:1px solid #eee;margin-top:1rem;}
+.prob-track{height:8px;background:#eee;border-radius:4px;overflow:hidden;margin-bottom:6px;}
+.prob-fill{height:100%;border-radius:4px;background:#1D9E75;transition:width 1s ease;}
+.prob-score{font-size:28px;font-weight:500;color:#1D9E75;font-family:'Playfair Display',serif;}
+.factors{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:1rem;}
+.factor{padding:8px 10px;border:1px solid #eee;border-radius:8px;background:#fff;}
+.factor-name{font-size:11px;color:#888;margin-bottom:4px;}
+.factor-val{font-size:14px;font-weight:500;}
+
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2.5rem;}
+.price-card{padding:1.75rem;border:1px solid #eee;border-radius:14px;}
+.price-card.featured{border:2px solid #1D9E75;}
+.price-badge{display:inline-block;background:#E1F5EE;color:#0F6E56;font-size:11px;font-weight:500;padding:3px 10px;border-radius:20px;margin-bottom:1rem;}
+.price-name{font-size:14px;font-weight:500;color:#666;margin-bottom:0.5rem;}
+.price-num{font-family:'Playfair Display',serif;font-size:36px;font-weight:700;margin-bottom:0.25rem;}
+.price-period{font-size:13px;color:#888;margin-bottom:1.5rem;}
+.price-features{list-style:none;}
+.price-features li{font-size:13px;padding:6px 0;border-bottom:1px solid #eee;color:#555;}
+.price-features li:last-child{border-bottom:none;}
+.price-features li::before{content:"✓ ";color:#1D9E75;font-weight:500;}
+
+.cta{text-align:center;padding:5rem 2rem;background:#f9f9f9;border-top:1px solid #eee;}
+.cta h2{font-family:'Playfair Display',serif;font-size:40px;font-weight:700;margin-bottom:1rem;}
+.cta p{font-size:16px;color:#666;margin-bottom:2rem;}
+.email-row{display:flex;gap:1rem;max-width:420px;margin:0 auto;}
+.email-input{flex:1;padding:12px 16px;border:1px solid #ddd;border-radius:8px;font-size:14px;font-family:'DM Sans',sans-serif;}
+
+.footer{padding:2rem;text-align:center;font-size:13px;color:#888;border-top:1px solid #eee;}
+.footer a{color:#1D9E75;text-decoration:none;}
+
+.case-study{background:#E1F5EE;border-radius:16px;padding:2rem;margin-top:2rem;border:1px solid #c8eedd;}
+.case-tag{font-size:11px;font-weight:500;color:#0F6E56;letter-spacing:1px;text-transform:uppercase;margin-bottom:0.75rem;}
+.case-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;margin-bottom:0.75rem;}
+.case-stats{display:flex;gap:2rem;margin-top:1rem;}
+.case-stat-num{font-size:24px;font-weight:700;color:#085041;font-family:'Playfair Display',serif;}
+.case-stat-label{font-size:11px;color:#0F6E56;margin-top:2px;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Geo<span>Seer</span></div>
+  <div class="nav-links">
+    <a href="#how">How it works</a>
+    <a href="/research">Research</a>
+    <a href="#pricing">Pricing</a>
+  </div>
+  <a href="#demo" class="btn-nav">Try the demo</a>
+</nav>
+
+<div class="hero">
+  <div>
+    <div class="hero-tag"><div class="dot"></div> AI-powered site discovery</div>
+    <h1>Find what history<br><em>forgot to bury.</em></h1>
+    <p>GeoSeer uses satellite data, terrain analysis, and machine learning to predict the location of undiscovered archaeological sites, fossil beds, and lost civilizations — anywhere on Earth.</p>
+    <a href="#demo" class="btn-primary">Try the demo</a>
+    <a href="/research" class="btn-secondary">View research</a>
+  </div>
+  <div class="map-preview">
+    <svg viewBox="0 0 500 340" xmlns="http://www.w3.org/2000/svg">
+      <rect width="500" height="340" fill="#B5D4F4" opacity="0.3"/>
+      <polygon points="200,10 300,10 340,70 360,150 350,230 330,290 310,330 250,340 190,330 170,290 150,230 140,150 160,70 180,10" fill="#C0DD97" opacity="0.6"/>
+      <path d="M178,20 Q158,65 148,125 Q136,188 138,238 Q140,288 158,318 Q178,335 210,338" stroke="#1D9E75" stroke-width="2.5" fill="none"/>
+      <circle cx="162" cy="105" r="16" fill="#1D9E75" opacity="0.2"/><circle cx="162" cy="105" r="8" fill="#1D9E75" opacity="0.9"/>
+      <circle cx="155" cy="145" r="14" fill="#1D9E75" opacity="0.18"/><circle cx="155" cy="145" r="7" fill="#1D9E75" opacity="0.85"/>
+      <circle cx="148" cy="200" r="14" fill="#1D9E75" opacity="0.15"/><circle cx="148" cy="200" r="6" fill="#1D9E75" opacity="0.8"/>
+      <circle cx="145" cy="265" r="14" fill="#1D9E75" opacity="0.18"/><circle cx="145" cy="265" r="6" fill="#1D9E75" opacity="0.85"/>
+      <circle cx="200" cy="335" r="20" fill="#1D9E75" opacity="0.25"/><circle cx="200" cy="335" r="10" fill="#085041" opacity="0.95"/>
+      <text x="168" y="102" font-size="10" fill="#085041" font-family="DM Sans,sans-serif" font-weight="500">88%</text>
+      <text x="161" y="142" font-size="10" fill="#085041" font-family="DM Sans,sans-serif" font-weight="500">91%</text>
+      <text x="154" y="197" font-size="10" fill="#085041" font-family="DM Sans,sans-serif" font-weight="500">86%</text>
+      <text x="151" y="262" font-size="10" fill="#085041" font-family="DM Sans,sans-serif" font-weight="500">89%</text>
+      <text x="208" y="333" font-size="10" fill="#085041" font-family="DM Sans,sans-serif" font-weight="500">95% ★</text>
+      <rect x="10" y="10" width="132" height="55" rx="8" fill="white" opacity="0.92"/>
+      <text x="20" y="28" font-size="10" fill="#0F6E56" font-family="DM Sans,sans-serif" font-weight="500">KONKAN COAST · LIVE</text>
+      <rect x="20" y="35" width="10" height="10" rx="2" fill="#1D9E75"/>
+      <text x="34" y="44" font-size="9" fill="#5F5E5A" font-family="DM Sans,sans-serif">Critical (85-95%)</text>
+      <rect x="20" y="50" width="10" height="10" rx="2" fill="#9FE1CB"/>
+      <text x="34" y="59" font-size="9" fill="#5F5E5A" font-family="DM Sans,sans-serif">Rock boundary</text>
+    </svg>
+  </div>
+</div>
+
+<div class="stats">
+  <div><div class="stat-num">7</div><div class="stat-label">excavation candidates identified</div></div>
+  <div><div class="stat-num">5</div><div class="stat-label">independent methods converged</div></div>
+  <div><div class="stat-num">8-10km</div><div class="stat-label">rock boundary mapped — first time</div></div>
+  <div><div class="stat-num">Free</div><div class="stat-label">open access tier for researchers</div></div>
+</div>
+
+<div class="section" id="how">
+  <div class="section-tag">methodology</div>
+  <div class="section-title">How GeoSeer finds the unfindable</div>
+  <div class="steps">
+    <div class="step"><div class="step-num">01</div><h3>Define your region</h3><p>Enter a region name or coordinates. GeoSeer works at any scale — from a 10km coastal zone to an entire geological province.</p></div>
+    <div class="step"><div class="step-num">02</div><h3>AI stacks the layers</h3><p>DEM terrain, coastline proximity, NDVI vegetation, geology, drainage networks, and historical site density are weighted and combined.</p></div>
+    <div class="step"><div class="step-num">03</div><h3>Probability map generated</h3><p>Every zone in your region gets a discovery probability score. Export as GeoJSON, PDF report, or QGIS-ready file for fieldwork.</p></div>
+  </div>
+
+  <div class="case-study">
+    <div class="case-tag">Live case study</div>
+    <div class="case-title">Konkan Coast, Maharashtra — Ratnagiri Peninsula</div>
+    <p style="font-size:14px;color:#0F6E56;line-height:1.7;">The first systematic GIS-based remote sensing survey of the Ratnagiri coastline. Five independent methods converged on 7 CRITICAL excavation candidates along an 8-10km Deccan Trap basalt exposure — including previously undocumented offshore intertidal platforms.</p>
+    <div class="case-stats">
+      <div><div class="case-stat-num">95%</div><div class="case-stat-label">Top site probability (E7)</div></div>
+      <div><div class="case-stat-num">7</div><div class="case-stat-label">Excavation candidates</div></div>
+      <div><div class="case-stat-num">66Ma</div><div class="case-stat-label">Target geological period</div></div>
+      <div><div class="case-stat-num">2026</div><div class="case-stat-label">Survey completed</div></div>
+    </div>
+    <a href="/research" style="display:inline-block;margin-top:1.25rem;background:#085041;color:white;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:500;text-decoration:none;">View full research →</a>
+  </div>
+</div>
+
+<div class="section" style="border-top:1px solid #eee;">
+  <div class="section-tag">data inputs</div>
+  <div class="section-title">Six layers. One prediction.</div>
+  <div class="layers-grid">
+    <div class="layer-card"><div class="layer-icon" style="background:#E1F5EE;">⛰</div><div><div class="layer-label">Digital elevation model</div><div class="layer-sub">NASA SRTM 30m terrain data</div></div></div>
+    <div class="layer-card"><div class="layer-icon" style="background:#E6F1FB;">🌊</div><div><div class="layer-label">Coastline & water proximity</div><div class="layer-sub">Distance-weighted erosion scoring</div></div></div>
+    <div class="layer-card"><div class="layer-icon" style="background:#EAF3DE;">🌿</div><div><div class="layer-label">NDVI vegetation index</div><div class="layer-sub">ESA Sentinel-2 multispectral</div></div></div>
+    <div class="layer-card"><div class="layer-icon" style="background:#FAEEDA;">🪨</div><div><div class="layer-label">Geological formations</div><div class="layer-sub">Sedimentary rock age mapping</div></div></div>
+    <div class="layer-card"><div class="layer-icon" style="background:#FAECE7;">🏛</div><div><div class="layer-label">Known site density</div><div class="layer-sub">ASI + PBDB historical records</div></div></div>
+    <div class="layer-card"><div class="layer-icon" style="background:#FBEAF0;">📐</div><div><div class="layer-label">Slope & aspect</div><div class="layer-sub">Derived from DEM hillshade analysis</div></div></div>
+  </div>
+</div>
+
+<div class="section" id="demo" style="border-top:1px solid #eee;">
+  <div class="section-tag">live demo</div>
+  <div class="section-title">Run a prediction</div>
+  <div class="demo-box">
+    <div style="font-size:13px;color:#888;margin-bottom:1.25rem;">Enter region details to generate a probability analysis</div>
+    <div class="input-row">
+      <input class="gs-input" id="region" placeholder="Region name (e.g. Ratnagiri, Maharashtra)"/>
+      <select class="gs-select" id="type">
+        <option>Archaeological sites</option>
+        <option>Fossil beds</option>
+        <option>Both</option>
+      </select>
+    </div>
+    <div class="input-row">
+      <input class="gs-input" id="lat" placeholder="Latitude (e.g. 17.02)"/>
+      <input class="gs-input" id="lon" placeholder="Longitude (e.g. 73.25)"/>
+    </div>
+    <button class="analyze-btn" onclick="runAnalysis()">Analyze region</button>
+    <div class="result" id="result">
+      <div style="font-size:13px;color:#888;margin-bottom:1rem;">Results for <strong id="result-name"></strong></div>
+      <div class="prob-bar-wrap">
+        <div style="font-size:13px;color:#888;margin-bottom:8px;">Overall discovery probability</div>
+        <div class="prob-track"><div class="prob-fill" id="prob-fill" style="width:0%"></div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;">
+          <div class="prob-score" id="prob-score">0%</div>
+          <div style="font-size:12px;color:#888;" id="verdict"></div>
+        </div>
+      </div>
+      <div class="factors" id="factors"></div>
+      <div style="margin-top:1rem;font-size:12px;color:#aaa;font-style:italic;">Demo uses simulated values. Full analysis integrates live satellite data.</div>
+    </div>
+  </div>
+</div>
+
+<div class="section" id="pricing" style="border-top:1px solid #eee;">
+  <div class="section-tag">pricing</div>
+  <div class="section-title">Built for researchers and institutions</div>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="price-name">Researcher</div>
+      <div class="price-num">Free</div>
+      <div class="price-period">academic use</div>
+      <ul class="price-features">
+        <li>5 analyses per month</li>
+        <li>PDF probability report</li>
+        <li>3 data layers</li>
+        <li>India regions only</li>
+      </ul>
+    </div>
+    <div class="price-card featured">
+      <div class="price-badge">Most popular</div>
+      <div class="price-name">Institution</div>
+      <div class="price-num">$299</div>
+      <div class="price-period">per month</div>
+      <ul class="price-features">
+        <li>Unlimited analyses</li>
+        <li>GeoJSON + QGIS export</li>
+        <li>All 6 data layers</li>
+        <li>Global regions</li>
+        <li>API access</li>
+      </ul>
+    </div>
+    <div class="price-card">
+      <div class="price-name">Enterprise</div>
+      <div class="price-num">Custom</div>
+      <div class="price-period">contact us</div>
+      <ul class="price-features">
+        <li>White-label platform</li>
+        <li>Custom data integration</li>
+        <li>Dedicated support</li>
+        <li>Film & media licensing</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="cta">
+  <h2>Be first to discover<br>what's still out there.</h2>
+  <p>Join the waitlist. Early access for research institutions and field teams.</p>
+  <div class="email-row">
+    <input class="email-input" placeholder="your@institution.edu"/>
+    <button class="btn-primary" style="white-space:nowrap;padding:12px 20px;">Join waitlist</button>
+  </div>
+</div>
+
+<div class="footer">
+  GeoSeer · Built on open satellite data · Konkan Coast research by <a href="/research">Sumit Ingole</a> · 2026
+</div>
+
+<script>
+async function runAnalysis(){
+  const region = document.getElementById('region').value || 'Unnamed Region';
+  const res = await fetch('/api/analyze',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({region})});
+  const data = await res.json();
+  document.getElementById('result-name').textContent = data.region;
+  document.getElementById('result').style.display = 'block';
+  setTimeout(()=>{
+    document.getElementById('prob-fill').style.width = data.overall_score+'%';
+    document.getElementById('prob-score').textContent = data.overall_score+'%';
+    document.getElementById('verdict').textContent = data.priority+' priority zone';
+  },100);
+  const labels = {dem_terrain:'DEM terrain',coastal_proximity:'Coastal proximity',ndvi_pattern:'NDVI pattern',slope_aspect:'Slope aspect',geology_match:'Geology match',site_density:'Site density'};
+  document.getElementById('factors').innerHTML = Object.entries(data.layer_scores).map(([k,v])=>`<div class="factor"><div class="factor-name">${labels[k]}</div><div class="factor-val" style="color:${v>70?'#1D9E75':v>55?'#BA7517':'#888'}">${v}%</div></div>`).join('');
+}
+</script>
+</body>
+</html>

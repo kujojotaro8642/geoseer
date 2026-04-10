@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Konkan Coast Research — GeoSeer</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;color:#1a1a1a;background:#fff;}
+nav{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 2rem;border-bottom:1px solid #eee;}
+.logo{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;}
+.logo span{color:#1D9E75;}
+.back{font-size:13px;color:#1D9E75;text-decoration:none;}
+.hero{padding:4rem 2rem 2rem;max-width:900px;margin:0 auto;}
+.tag{display:inline-block;background:#E1F5EE;color:#0F6E56;font-size:11px;font-weight:500;padding:4px 12px;border-radius:20px;margin-bottom:1rem;letter-spacing:0.5px;}
+h1{font-family:'Playfair Display',serif;font-size:42px;font-weight:700;line-height:1.2;margin-bottom:1rem;letter-spacing:-0.5px;}
+.meta{font-size:13px;color:#888;margin-bottom:2rem;line-height:1.8;}
+.abstract{background:#f9f9f9;border-left:3px solid #1D9E75;padding:1.25rem 1.5rem;border-radius:0 8px 8px 0;margin-bottom:3rem;font-size:15px;line-height:1.8;color:#333;}
+.metrics-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:3rem;}
+.metric{background:#E1F5EE;border-radius:10px;padding:1rem;text-align:center;}
+.metric-num{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:#085041;}
+.metric-label{font-size:11px;color:#0F6E56;margin-top:4px;}
+.section{max-width:900px;margin:0 auto;padding:2rem;}
+.section-title{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;margin-bottom:1.5rem;padding-bottom:0.75rem;border-bottom:1px solid #eee;}
+.site-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:2rem;}
+.site-card{border:1px solid #eee;border-radius:12px;padding:1.25rem;}
+.site-card.top{border-color:#1D9E75;background:#f0faf6;}
+.site-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;}
+.site-id{font-size:16px;font-weight:500;}
+.site-score{font-size:18px;font-weight:700;color:#1D9E75;font-family:'Playfair Display',serif;}
+.site-zone{font-size:11px;color:#888;margin-bottom:0.75rem;}
+.site-desc{font-size:13px;color:#555;line-height:1.6;margin-bottom:0.75rem;}
+.site-coords{font-size:11px;color:#aaa;font-family:monospace;}
+.methods{display:flex;flex-wrap:wrap;gap:4px;margin-top:0.75rem;}
+.method-tag{font-size:10px;padding:3px 8px;border-radius:10px;background:#E1F5EE;color:#0F6E56;}
+.method-table{width:100%;border-collapse:collapse;margin-bottom:2rem;}
+.method-table th{background:#f9f9f9;padding:10px 12px;text-align:left;font-size:13px;font-weight:500;border-bottom:1px solid #eee;}
+.method-table td{padding:10px 12px;font-size:13px;border-bottom:1px solid #eee;color:#555;vertical-align:top;}
+.method-table tr:last-child td{border-bottom:none;}
+.findings-list{list-style:none;margin-bottom:2rem;}
+.findings-list li{padding:10px 0 10px 1.5rem;border-bottom:1px solid #eee;font-size:14px;color:#444;line-height:1.6;position:relative;}
+.findings-list li::before{content:"→";position:absolute;left:0;color:#1D9E75;font-weight:500;}
+.cta-box{background:#085041;color:white;border-radius:16px;padding:2.5rem;text-align:center;margin:2rem 0;}
+.cta-box h3{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;margin-bottom:0.75rem;}
+.cta-box p{font-size:14px;opacity:0.85;margin-bottom:1.5rem;line-height:1.7;}
+.cta-btn{background:white;color:#085041;border:none;padding:12px 28px;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;text-decoration:none;display:inline-block;}
+.footer{padding:2rem;text-align:center;font-size:13px;color:#888;border-top:1px solid #eee;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Geo<span>Seer</span></div>
+  <a href="/" class="back">← Back to platform</a>
+</nav>
+
+<div class="hero">
+  <div class="tag">Research Publication — April 2026</div>
+  <h1>Konkan Coast Paleontological Survey</h1>
+  <div class="meta">
+    <strong>Sumit Ingole</strong> · BSc Data Science, MGM College of Computer Science & IT, Chhatrapati SambhajiNagar<br>
+    Study Area: Ratnagiri District, Maharashtra, India (17.02°N, 73.25°E)<br>
+    Research Period: March 17 – April 10, 2026 · Software: QGIS 3.x LTR · Data: NASA, ESA Copernicus, GSI
+  </div>
+  <div class="abstract">
+    A systematic multi-method GIS and remote sensing investigation of the Konkan coastline at Ratnagiri District, identifying seven CRITICAL priority excavation candidate sites along an 8-10km exposed Deccan Trap basalt boundary. Five independent analytical methods independently converge on the western cliff face as the highest-priority paleontological investigation zone — consistent with confirmed sauropod dinosaur trackway discoveries in the same region in 2020-2021.
+  </div>
+  <div class="metrics-row">
+    <div class="metric"><div class="metric-num">7</div><div class="metric-label">Excavation candidates</div></div>
+    <div class="metric"><div class="metric-num">5</div><div class="metric-label">Methods converged</div></div>
+    <div class="metric"><div class="metric-num">7</div><div class="metric-label">GIS layers</div></div>
+    <div class="metric"><div class="metric-num">95%</div><div class="metric-label">Top site probability</div></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">Excavation Candidates</div>
+  <div class="site-grid">
+    {% for site in sites %}
+    <div class="site-card {% if site.id == 'E7' %}top{% endif %}">
+      <div class="site-header">
+        <span class="site-id">{{ site.id }}{% if site.id == 'E7' %} ★ Highest Priority{% endif %}</span>
+        <span class="site-score">{{ site.score }}%</span>
+      </div>
+      <div class="site-zone">{{ site.zone }} Zone · {{ site.priority }}</div>
+      <div class="site-desc">{{ site.desc }}</div>
+      <div class="site-coords">{{ site.lat }}°N, {{ site.lng }}°E</div>
+      <div class="methods">
+        {% for m in site.methods %}<span class="method-tag">{{ m }}</span>{% endfor %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="section-title">Multi-Method Convergence</div>
+  <table class="method-table">
+    <thead><tr><th>Method</th><th>Finding</th><th>Conclusion</th></tr></thead>
+    <tbody>
+      <tr><td>Visual Satellite Analysis</td><td>Reddish-orange lateritic basalt, active wave erosion on western cliff</td><td>Western cliff = prime fossil zone</td></tr>
+      <tr><td>DEM Elevation Analysis</td><td>Sharp elevation transitions, convergent marine + fluvial erosion</td><td>Western cliff = maximum erosion zone</td></tr>
+      <tr><td>Rock Boundary Mapping</td><td>Differential erosion, irregular embayments along 8-10km boundary</td><td>Intertrappean bed indicator confirmed</td></tr>
+      <tr><td>Sentinel-2 NDVI</td><td>Low NDVI along full boundary, offshore intertidal platforms visible</td><td>Bare rock confirmed spectrally</td></tr>
+      <tr><td>Excavation Point Analysis</td><td>7 specific sites satisfying multiple simultaneous geological criteria</td><td>Actionable field guidance produced</td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-title">Novel Discoveries</div>
+  <ul class="findings-list">
+    <li>Previously undocumented offshore intertidal rock platforms identified west of peninsula via NDVI analysis — extending the known fossil-bearing zone beyond the terrestrial coastline</li>
+    <li>Extensive differential erosion network confirmed as surface expression of intertrappean beds — the sedimentary horizons that preserve Cretaceous fossils</li>
+    <li>V-shaped drainage valley at E1 identified as highest-priority natural excavation site — river erosion + wave action creating dual-wall rock exposure</li>
+    <li>Complete 8-10km rock exposure boundary digitized for the first time in published literature</li>
+    <li>Seven specific excavation candidates identified with multi-criteria geological justification — transforming the work from mapping exercise to actionable field guidance</li>
+  </ul>
+
+  <div class="cta-box">
+    <h3>This site needs professional eyes on it.</h3>
+    <p>The western cliff face of Ratnagiri peninsula is confirmed as a high-priority paleontological investigation zone. The complete GIS dataset — all 7 layers, boundary files, and excavation candidates — is available for field teams planning physical investigations.</p>
+    <a href="/" class="cta-btn">Access the full platform →</a>
+  </div>
+</div>
+
+<div class="footer">
+  GeoSeer Research · Konkan Coast Survey · Sumit Ingole · April 2026
+</div>
+</body>
+</html>
